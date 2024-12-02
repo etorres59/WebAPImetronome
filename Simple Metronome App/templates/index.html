@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Metronome</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/metronome.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>ET's Metronome</h1>
+         
+        <!-- Metronome Sound Dropdown Select -->
+        <!-- <label for="metronomeSound">Choose a Metronome sound:</label>
+        <select name="metronomeSound" id="metronomeSound" onchange="updateSound(this, event)">
+            <option value="tick">Tick</option>
+            <option selected value="click">Click</option>
+            <option value="cowbell">Cowbell</option>
+            <option value="hihat">Hi Hat</option>
+            <option value="beep">Beep</option>
+            <option value="rimshot">Rimshot</option>
+        </select> -->
+
+        <h2>Input BPM:</h2>
+        <!-- BPM input -->
+        <label for="bpm">BPM:</label>
+        <input type="number" id="bpm" value="120" min="1" max="300">
+
+        <!-- Start and Stop buttons -->
+        <button id="startButton">Start</button>
+        <button id="stopButton">Stop</button>
+
+        <!-- Volume slider -->
+        <label for="volumeSlider">Volume</label>
+        <input type="range" id="volumeSlider" min="0" max="1" step=".01">
+        <input type="text" id="volumeLevel" value=".75"/>
+
+        <p><u><b>NOTE:</b></u><i> Any changes made below while metronome is already playing will require you to stop and start the metronome to occur.</i></p>
+
+        <div class="bpmAdjustments">
+            <span>BPM Adjustments:</span>
+        
+            <!-- BPM Adjustment Buttons -->
+            <button id="bpmadjust+1" onclick="changeBpm(1)">+1</button>
+            <button id="bpmadjust-1" onclick="changeBpm(-1)">-1</button>
+            <button id="bpmadjust+5" onclick="changeBpm(5)">+5</button>
+            <button id="bpmadjust-5" onclick="changeBpm(-5)">-5</button>
+            <button id="bpmadjust+10"onclick="changeBpm(10)">+10</button>
+            <button id="bpmadjust-10"onclick="changeBpm(-10)">-10</button>
+        </div>
+    
+        
+        
+        <!-- Sub-division Drop Down Select -->
+        <label for="subdivisionSelect">Choose a Subdivision:</label>
+        <select name="subdivisionSelect" id="subdivisionSelect">
+            <option selected value="1">Quarter Note</option>
+            <option value="3">Quarter Note Triplets</option>
+            <option value="2">Eighth Note</option>
+            <option value="6">Eighth Note Triplets</option>
+            <option value="4">Sixteenth Note</option>
+            <option value="12">Sixteenth Note Triplets</option>
+
+
+        </select> 
+        
+        <br>
+        
+        <p></p>
+        
+
+        <!-- Audio element -->
+        <!-- <audio id="audio" controls>
+            <source id="soundSource" src="/static/sounds/click.mp3" type="audio/mp3"/>
+            Your browser does not support the audio element.
+        </audio> -->
+
+        <div id ="beatIndicator" style="width: 50px; height: 50px; background-color: grey; border-radius: 50%; margin: 10px;"></div>
+    
+    </div>
+</body>
+</html>
