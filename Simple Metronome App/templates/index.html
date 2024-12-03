@@ -23,20 +23,49 @@
         </select> -->
 
         <h2>Input BPM:</h2>
-        <!-- BPM input -->
-        <label for="bpm">BPM:</label>
-        <input type="number" id="bpm" value="120" min="1" max="300">
+        <div class="mainBpmElements">
+            
+            <div class="bpmLabel">
+                <!-- BPM input -->
+                <label for="bpm">BPM:</label>
+            </div>
+            
+            <div class="bpmInputbBox">
+                <input type="number" id="bpm" value="120" min="1" max="300">
+            </div>
 
-        <!-- Start and Stop buttons -->
-        <button id="startButton">Start</button>
-        <button id="stopButton">Stop</button>
+            <div class="playbackButtons">
+                <!-- Start and Stop buttons -->
+                <button id="startButton">Start</button>
+                <button id="stopButton">Stop</button>
+            </div>
+            
+            <br>
 
-        <!-- Volume slider -->
-        <label for="volumeSlider">Volume</label>
-        <input type="range" id="volumeSlider" min="0" max="1" step=".01">
-        <input type="text" id="volumeLevel" value=".75"/>
+            <!-- Volume slider -->
+            <label for="volumeSlider">Volume</label>
+            <input type="range" id="volumeSlider" min="0" max="1" step=".01">
+            <input type="text" id="volumeLevel" value=".75"/>
+        </div>
 
-        <p><u><b>NOTE:</b></u><i> Any changes made below while metronome is already playing will require you to stop and start the metronome to occur.</i></p>
+        <div class="metronomeSoundAdjustments">
+            <label for="selectedSound">Select Sound:</label>
+            <select id="selectedSound">
+                <option selected value="0">Sine</option>
+                <option value="1">Square</option>
+                <option value="2">Sawtooth</option>
+                <option value="3">Triangle</option>
+            </select>
+
+            <label for="selectedFrequency">Select Frequency:</label>
+            <select id="selectedFrequency">
+                <option value="0">High</option>
+                <option selected value="1">Mid</option>
+                <option value="2">Low</option>
+            </select>
+        </div>
+
+        <p><u><b>NOTE</b>:</u><i> Any changes made below while metronome is already playing will require you to stop and start the metronome to occur.</i></p>
 
         <div class="bpmAdjustments">
             <span>BPM Adjustments:</span>
@@ -51,24 +80,22 @@
         </div>
     
         
-        
-        <!-- Sub-division Drop Down Select -->
-        <label for="subdivisionSelect">Choose a Subdivision:</label>
-        <select name="subdivisionSelect" id="subdivisionSelect">
-            <option selected value="1">Quarter Note</option>
-            <option value="3">Quarter Note Triplets</option>
-            <option value="2">Eighth Note</option>
-            <option value="6">Eighth Note Triplets</option>
-            <option value="4">Sixteenth Note</option>
-            <option value="12">Sixteenth Note Triplets</option>
+        <div class="subdivisionSelector">
+            <!-- Sub-division Drop Down Select -->
+            <label for="subdivisionSelect">Choose a Subdivision:</label>
+            <select name="subdivisionSelect" id="subdivisionSelect">
+                <option selected value="1">Quarter Note</option>
+                <option value="3">Quarter Note Triplets</option>
+                <option value="2">Eighth Note</option>
+                <option value="6">Eighth Note Triplets</option>
+                <option value="4">Sixteenth Note</option>
+                <option value="12">Sixteenth Note Triplets</option>
 
 
-        </select> 
-        
-        <br>
-        
-        <p></p>
-        
+            </select> 
+        </div>
+
+        <br>    
 
         <!-- Audio element -->
         <!-- <audio id="audio" controls>
@@ -76,7 +103,7 @@
             Your browser does not support the audio element.
         </audio> -->
 
-        <div id ="beatIndicator" style="width: 50px; height: 50px; background-color: grey; border-radius: 50%; margin: 10px;"></div>
+        <div id ="beatIndicator" style="width: 50px; height: 50px; background-color: grey; border-radius: 50%;"></div>
     
     </div>
 </body>

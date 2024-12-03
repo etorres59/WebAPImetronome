@@ -1,39 +1,39 @@
 // Function to update the sound source
 //function updateSound(sender,e) {
-   //const soundSource = document.getElementById("soundSource"); // Get the source element
-   //const audioPlayer = document.getElementById("audio"); // Get the audio player
+//const soundSource = document.getElementById("soundSource"); // Get the source element
+//const audioPlayer = document.getElementById("audio"); // Get the audio player
 
 
-   //const selectedValue = sender.options[sender.selectedIndex];
+//const selectedValue = sender.options[sender.selectedIndex];
 
 
-   // Use a switch statement to handle each option
-   //switch (selectedValue.value) {
-   //    case "tick":
-   //        soundSource.src = "/static/sounds/tick.mp3";
-   //        break;
-   //    case "click":
-   //        soundSource.src = "/static/sounds/click.mp3";
-   //        break;
-   //    case "cowbell":
-   //        soundSource.src = "/static/sounds/cowbell.mp3";
-   //        break;
-   //    case "hihat":
-   //        soundSource.src = "/static/sounds/hihat.mp3";
-   //        break;
-   //    case "beep":
-   //        soundSource.src = "/static/sounds/beep.mp3";
-   //        break;
-   //    case "rimshot":
-   //        soundSource.src = "/static/sounds/rimshot.mp3";
-   //        break;
-   //    default:
-   //        console.error("Invalid selection");
-   //        return; // Exit the function if no valid option is selected
-   //}
+// Use a switch statement to handle each option
+//switch (selectedValue.value) {
+//    case "tick":
+//        soundSource.src = "/static/sounds/tick.mp3";
+//        break;
+//    case "click":
+//        soundSource.src = "/static/sounds/click.mp3";
+//        break;
+//    case "cowbell":
+//        soundSource.src = "/static/sounds/cowbell.mp3";
+//        break;
+//    case "hihat":
+//        soundSource.src = "/static/sounds/hihat.mp3";
+//        break;
+//    case "beep":
+//        soundSource.src = "/static/sounds/beep.mp3";
+//        break;
+//    case "rimshot":
+//        soundSource.src = "/static/sounds/rimshot.mp3";
+//        break;
+//    default:
+//        console.error("Invalid selection");
+//        return; // Exit the function if no valid option is selected
+//}
 
 
-   // Reload the audio player with the updated source
+// Reload the audio player with the updated source
 //    audioPlayer.load();
 //    console.log(`Audio source updated to: ${soundSource.src}`); // Debug log
 //}
@@ -43,7 +43,8 @@ let metronomeInterval;
 let audioContext; // Declare a global AudioContext
 let currentOscillator = null; // Keeps track of the current oscillator being played
 let currentGainNode = null; // Keeps track of the current gain node
-let currentVolume = 0.75;
+let currentVolume = 0.75; // defaults the current volume
+let isMetronomeRunning = false;//track metronome state
 
 // Initialize AudioContext on window load
 window.onload = function () {
@@ -53,7 +54,17 @@ window.onload = function () {
     // Set volume slider to initial value
     const volumeSlider = document.getElementById("volumeSlider");
     volumeSlider.value = currentVolume;
+
+    //Add keydown listener event for spacebar
+    document.addEventListener("keydown", function (event) {
+        if (event.code === "Space") {
+            event.preventDefault(); // prevent default spacebar behavior
+            toggleMetronome();
+        }
+    });
 };
+
+
 
 function playSound() {
     // Ensure AudioContext is resumed (Chrome requirement)
@@ -65,9 +76,52 @@ function playSound() {
     let oscillator = audioContext.createOscillator();
     let gainNode = audioContext.createGain();
 
-    // Sets Oscillator Frequency and Waveform
-    oscillator.frequency.value = 440; // A4 Frequency
-    oscillator.type = "sine";
+    // Sets Oscillator Frequency:
+    const selectedFrequency = document.getElementById("selectedFrequency");
+    const selectedFrequencyOption = selectedFrequency.options[selectedFrequency.selectedIndex]
+    const pitch = parseInt(selectedFrequencyOption.value);
+    switch (pitch) {
+        case 0:
+            oscillator.frequency.value = 880; // A5 Frequency
+            break;
+
+        case 1:
+            oscillator.frequency.value = 440; // A4 Frequency
+            break;
+
+        case 2:
+            oscillator.frequency.value = 220; // A3 Frequency
+            break;
+
+        default:
+            oscillator.frequency.value = 440; // A4 Frequency
+    }
+    const selectedSound = document.getElementById("selectedSound");
+    const selectedSoundOption = selectedSound.options[selectedSound.selectedIndex]
+    const waveform = parseInt(selectedSoundOption.value);
+    // Sets Oscillator Waveform:
+    switch (waveform) {
+
+        case 0: // sine
+            oscillator.type = "sine";
+            break;
+
+        case 1: // square
+            oscillator.type = "square";
+            break;
+
+        case 2: // sawtooth
+            oscillator.type = "sawtooth";
+            break;
+
+        case 3: // triangle
+            oscillator.type = "triangle";
+            break;
+
+        default:
+            oscillator.type = "sine";
+    }
+
 
     // Connect oscillator to gain, then to audio context destination
     oscillator.connect(gainNode);
@@ -131,6 +185,8 @@ function startMetronome() {
             beatIndicator.style.backgroundColor = "grey"; // Reset beat indicator to grey
         }, 25); // Change from green to grey in 25ms
     }, interval);
+
+    isMetronomeRunning = true; //Updates Metronome Running State
 }
 
 function stopMetronome() {
@@ -143,6 +199,17 @@ function stopMetronome() {
         currentOscillator.stop(); // Stop the oscillator
         currentOscillator = null; // Reset oscillator reference
     }
+
+    isMetronomeRunning = false; //Updates Metronome Running State
+}
+
+function toggleMetronome(){
+    if (isMetronomeRunning){
+        stopMetronome();
+    } else{
+        startMetronome();
+    }
+
 }
 
 // Attach event listeners to buttons
