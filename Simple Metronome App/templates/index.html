@@ -22,16 +22,64 @@
             <option value="rimshot">Rimshot</option>
         </select> -->
 
-        <h2>Input BPM:</h2>
         <div class="mainBpmElements">
             
-            <div class="bpmLabel">
+            <div class="bpmInput">
                 <!-- BPM input -->
-                <label for="bpm">BPM:</label>
-            </div>
-            
-            <div class="bpmInputbBox">
+                <label for="bpm"> Input BPM:</label>
                 <input type="number" id="bpm" value="120" min="1" max="300">
+            </div>
+
+            <div class="bpmAdjustments">
+                <span>BPM Adjustments:</span>
+   
+                <br>
+                <div class="adjustmentButtons">
+                    <!-- BPM Adjustment Buttons -->
+                    <button id="bpmadjustMinus10"onclick="changeBpm(-10)">-10</button>
+                    <button id="bpmadjustMinus5" onclick="changeBpm(-5)">-5</button>
+                    <button id="bpmadjustMinus1" onclick="changeBpm(-1)">-1</button>
+                    <button id="bpmadjustAdd1" onclick="changeBpm(1)">+1</button>
+                    <button id="bpmadjustAdd5" onclick="changeBpm(5)">+5</button>
+                    <button id="bpmadjustAdd10"onclick="changeBpm(10)">+10</button>
+                </div>
+            </div>
+
+            <div class="tapTempo">
+                <button id="tapButton">Tap Tempo</button>
+                <p class="tapInstructions">Tap 8 Times</p>
+            </div>
+
+            <div class="subdivisionSelector">
+                <!-- Sub-division Drop Down Select -->
+                <label for="subdivisionSelect">Subdivision:</label>
+                <select name="subdivisionSelect" id="subdivisionSelect">
+                    <option selected value="1">1/4 Note</option>
+                    <option value="3">1/4 Triplets</option>
+                    <option value="2">1/8 Note</option>
+                    <option value="6">1/8 Triplets</option>
+                    <option value="4">1/16 Note</option>
+                    <option value="12">1/16 Triplets</option>
+                </select> 
+            </div>
+
+            <div class="metronomeSoundAdjustments">
+                <label for="selectedSound">Sound:</label>
+                <select id="selectedSound">
+                    <option selected value="0">Sine</option>
+                    <option value="1">Square</option>
+                    <option value="2">Sawtooth</option>
+                    <option value="3">Triangle</option>
+                </select>
+                
+                <br>
+                
+                <label for="selectedFrequency">Frequency:</label>
+                <select id="selectedFrequency">
+                    <option value="0">High</option>
+                    <option selected value="1">Mid</option>
+                    <option value="2">Low</option>
+                </select>
             </div>
 
             <div class="playbackButtons">
@@ -41,60 +89,17 @@
             </div>
             
             <br>
-
-            <!-- Volume slider -->
-            <label for="volumeSlider">Volume</label>
-            <input type="range" id="volumeSlider" min="0" max="1" step=".01">
-            <input type="text" id="volumeLevel" value=".75"/>
+            <div class="volume">
+                <!-- Volume slider -->
+                <label for="volumeSlider">Volume</label>
+                <input type="range" id="volumeSlider" min="0" max="1" step=".01">
+                <input type="text" id="volumeLevel" value=".75"/>
+            </div>
         </div>
 
-        <div class="metronomeSoundAdjustments">
-            <label for="selectedSound">Select Sound:</label>
-            <select id="selectedSound">
-                <option selected value="0">Sine</option>
-                <option value="1">Square</option>
-                <option value="2">Sawtooth</option>
-                <option value="3">Triangle</option>
-            </select>
-
-            <label for="selectedFrequency">Select Frequency:</label>
-            <select id="selectedFrequency">
-                <option value="0">High</option>
-                <option selected value="1">Mid</option>
-                <option value="2">Low</option>
-            </select>
+        <div class="noteBox">
+        <p class="noteText"><u><b>NOTE</b>:</u><i> Any changes made to the BPM or Subdivisions will require you restart the metronome.</i></p>
         </div>
-
-        <p><u><b>NOTE</b>:</u><i> Any changes made below while metronome is already playing will require you to stop and start the metronome to occur.</i></p>
-
-        <div class="bpmAdjustments">
-            <span>BPM Adjustments:</span>
-        
-            <!-- BPM Adjustment Buttons -->
-            <button id="bpmadjust+1" onclick="changeBpm(1)">+1</button>
-            <button id="bpmadjust-1" onclick="changeBpm(-1)">-1</button>
-            <button id="bpmadjust+5" onclick="changeBpm(5)">+5</button>
-            <button id="bpmadjust-5" onclick="changeBpm(-5)">-5</button>
-            <button id="bpmadjust+10"onclick="changeBpm(10)">+10</button>
-            <button id="bpmadjust-10"onclick="changeBpm(-10)">-10</button>
-        </div>
-    
-        
-        <div class="subdivisionSelector">
-            <!-- Sub-division Drop Down Select -->
-            <label for="subdivisionSelect">Choose a Subdivision:</label>
-            <select name="subdivisionSelect" id="subdivisionSelect">
-                <option selected value="1">Quarter Note</option>
-                <option value="3">Quarter Note Triplets</option>
-                <option value="2">Eighth Note</option>
-                <option value="6">Eighth Note Triplets</option>
-                <option value="4">Sixteenth Note</option>
-                <option value="12">Sixteenth Note Triplets</option>
-
-
-            </select> 
-        </div>
-
         <br>    
 
         <!-- Audio element -->

@@ -224,4 +224,46 @@ function changeBpm(inc) {
     bpmInput.value = newBpm; // Change BPM input value to the new number
 }
 
+//tap tempo feature
+let intervals = [];
+let lastTap = null;
+let tapCount = 0;
+const requiredTaps = 8;
+
+const tapButton = document.getElementById('tapButton');
+const bpmInput = document.getElementById('bpm');
+
+tapButton.addEventListener('click', () => {
+    const now = performance.now(); // Get current timestamp in milliseconds
+
+    if (lastTap !== null) {
+        const interval = now - lastTap; // Calculate the interval in ms
+        if (interval >= 10) { // Ignore intervals less than 10 ms
+            intervals.push(interval);
+        } else {
+            alert("Ignored tap: Interval too short.");
+        }
+    }
+
+    lastTap = now;
+    tapCount++;
+
+    if (tapCount >= requiredTaps) {
+        if (intervals.length >= 7) {
+            const averageInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+            const bpm = Math.round(60000.0 / averageInterval); // Convert interval to BPM
+            bpmInput.value = bpm; // Update the BPM input field
+        } else {
+            bpmInput.value = "Error";
+            alert("Not enough valid intervals to calculate BPM.");
+        }
+        resetTaps(); // Reset for next calculation
+    }
+});
+
+function resetTaps() {
+    intervals = [];
+    lastTap = null;
+    tapCount = 0;
+}
 
