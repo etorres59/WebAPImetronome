@@ -24,13 +24,13 @@
 
         <div class="mainBpmElements">
             
-            <div class="bpmInput">
+            <div class="row bpmInput" >
                 <!-- BPM input -->
                 <label for="bpm"> Input BPM:</label>
                 <input type="number" id="bpm" value="120" min="1" max="300">
             </div>
 
-            <div class="bpmAdjustments">
+            <div class="row bpmAdjustments">
                 <span>BPM Adjustments:</span>
    
                 <br>
@@ -45,12 +45,15 @@
                 </div>
             </div>
 
-            <div class="tapTempo">
+            <div class="row tapTempo">
                 <button id="tapButton">Tap Tempo</button>
-                <p class="tapInstructions">Tap 8 Times</p>
+            </div>
+            
+            <div class="row">
+                <div class="tapInstructions">Tap 8 Times</div>
             </div>
 
-            <div class="subdivisionSelector">
+            <div class="row subdivisionSelector">
                 <!-- Sub-division Drop Down Select -->
                 <label for="subdivisionSelect">Subdivision:</label>
                 <select name="subdivisionSelect" id="subdivisionSelect">
@@ -63,7 +66,7 @@
                 </select> 
             </div>
 
-            <div class="metronomeSoundAdjustments">
+            <div class="row metronomeSoundAdjustments">
                 <label for="selectedSound">Sound:</label>
                 <select id="selectedSound">
                     <option selected value="0">Sine</option>
@@ -71,8 +74,9 @@
                     <option value="2">Sawtooth</option>
                     <option value="3">Triangle</option>
                 </select>
-                
-                <br>
+            </div>
+
+            <div class="row metronomeSoundAdjustments">
                 
                 <label for="selectedFrequency">Frequency:</label>
                 <select id="selectedFrequency">
@@ -82,14 +86,13 @@
                 </select>
             </div>
 
-            <div class="playbackButtons">
+            <div class="row playbackButtons">
                 <!-- Start and Stop buttons -->
                 <button id="startButton">Start</button>
                 <button id="stopButton">Stop</button>
             </div>
             
-            <br>
-            <div class="volume">
+            <div class="row volume">
                 <!-- Volume slider -->
                 <label for="volumeSlider">Volume</label>
                 <input type="range" id="volumeSlider" min="0" max="1" step=".01">
@@ -97,8 +100,8 @@
             </div>
         </div>
 
-        <div class="noteBox">
-        <p class="noteText"><u><b>NOTE</b>:</u><i> Any changes made to the BPM or Subdivisions will require you restart the metronome.</i></p>
+        <div class="row noteBox">
+        <span class="noteText"><u><b>NOTE</b>:</u><em> Any changes made to the BPM or Subdivisions will require you restart the metronome.</em></span>
         </div>
         <br>    
 
@@ -108,8 +111,9 @@
             Your browser does not support the audio element.
         </audio> -->
 
-        <div id ="beatIndicator" style="width: 50px; height: 50px; background-color: grey; border-radius: 50%;"></div>
-    
+        <div class="row">
+            <div id ="beatIndicator" style="width: 50px; height: 50px; background-color: grey; border-radius: 50%;"></div>
+        </div>
     </div>
 </body>
 </html>
