@@ -46,6 +46,14 @@ let currentGainNode = null; // Keeps track of the current gain node
 let currentVolume = 0.75; // defaults the current volume
 let isMetronomeRunning = false;//track metronome state
 
+//Create AnalyserNode and Canvas Context for visualizations
+let analyserNode;
+let canvas;
+let canvasCtx;
+let bufferLength;
+let dataArray;
+
+
 // Initialize AudioContext on window load
 window.onload = function () {
     // Create AudioContext but keep it suspended
@@ -75,6 +83,7 @@ function playSound() {
     // Creates an Oscillator
     let oscillator = audioContext.createOscillator();
     let gainNode = audioContext.createGain();
+    let filterNode = audioContext.createBiquadFilter();
 
     // Sets Oscillator Frequency:
     const selectedFrequency = document.getElementById("selectedFrequency");
@@ -122,9 +131,18 @@ function playSound() {
             oscillator.type = "sine";
     }
 
+    // Set Filter Properties
+    const filterTypeSelect = document.getElementById("filterType");
+    const filterFreqInput = document.getElementById("filterFreq");
+    const filterQInput = document.getElementById("filterQ");
 
-    // Connect oscillator to gain, then to audio context destination
-    oscillator.connect(gainNode);
+    filterNode.type = filterTypeSelect.value;
+    filterNode.frequency.value = parseFloat(filterFreqInput.value);
+    filterNode.Q.value = parseFloat(filterQInput.value);
+
+    // Connect Nodes: Oscillator -> Filter -> Gain -> Destination
+    oscillator.connect(filterNode);
+    filterNode.connect(gainNode);
     gainNode.connect(audioContext.destination);
 
     // Set initial volume from the gain volume slider
@@ -140,6 +158,31 @@ function playSound() {
     currentOscillator = oscillator;
     currentGainNode = gainNode;
 }
+
+function updateFilterFreqReadout(value) {
+    const freqReadout = document.getElementById("filterFreqReadout");
+    freqReadout.value = value; // Update the number input
+}
+
+function updateFilterQReadout(value) {
+    const qReadout = document.getElementById("filterQReadout");
+    qReadout.value = parseFloat(value).toFixed(1); // Update the number input with 1 decimal place
+}
+
+function updateFilterFreqSlider(value) {
+    const freqSlider = document.getElementById("filterFreq");
+    const numericValue = Math.min(Math.max(value, 20), 20000); // Clamp to valid range
+    freqSlider.value = numericValue; // Update the slider
+    updateFilterFreqReadout(numericValue); // Update readout to match the clamped value
+}
+
+function updateFilterQSlider(value) {
+    const qSlider = document.getElementById("filterQ");
+    const numericValue = Math.min(Math.max(value, 0.1), 10); // Clamp to valid range
+    qSlider.value = numericValue; // Update the slider
+    updateFilterQReadout(numericValue); // Update readout to match the clamped value
+}
+
 
 function updateVolume() {
     // Get slider value
